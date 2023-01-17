@@ -9,7 +9,11 @@
  Пример:
    forEach([1, 2, 3], (el) => console.log(el))
  */
-function forEach(array, fn) {}
+function forEach(array, fn) {
+  for (var i = 0; i < array.length; i++) {
+    fn()
+  }
+}
 
 /*
  Задание 2:
@@ -20,7 +24,12 @@ function forEach(array, fn) {}
  Пример:
    map([1, 2, 3], (el) => el ** 2) // [1, 4, 9]
  */
-function map(array, fn) {}
+function map(array) { 
+  for (let i = 0; i < array.length; i++) {
+    array[i] = array[i] ** 2
+    return array
+  }
+}
 
 /*
  Задание 3:
@@ -41,7 +50,21 @@ function reduce(array, fn, initial) {}
  Пример:
    upperProps({ name: 'Сергей', lastName: 'Петров' }) вернет ['NAME', 'LASTNAME']
  */
-function upperProps(obj) {}
+function upperProps(obj) {
+  const upperLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  const letters = "abcdefghijklmnopqrstuvwxyz"
+  var obj = 'name' //Не могу понять как обратиться к свойству//
+  for (var i = 0; i < obj.length; i++) {
+      for (var j = 0; j < letters.length; j++) {
+          if (obj[i] == letters[j]) {
+              result = result + upperLetters[j]
+          } else if (obj[i] == upperLetters[j]) {
+              result = result + upperLetters[j]
+          }
+      }
+  }
+  return result
+}
 
 /*
  Задание 5 *:
