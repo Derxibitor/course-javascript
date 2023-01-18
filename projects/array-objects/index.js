@@ -10,8 +10,8 @@
    forEach([1, 2, 3], (el) => console.log(el))
  */
 function forEach(array, fn) {
-  for (var i = 0; i < array.length; i++) {
-    fn()
+  for (let i = 0; i < array.length; i++) {
+    fn();
   }
 }
 
@@ -24,10 +24,10 @@ function forEach(array, fn) {
  Пример:
    map([1, 2, 3], (el) => el ** 2) // [1, 4, 9]
  */
-function map(array) { 
+function map(array) {
   for (let i = 0; i < array.length; i++) {
-    array[i] = array[i] ** 2
-    return array
+    array[i] = array[i] ** 2;
+    return array;
   }
 }
 
@@ -40,7 +40,13 @@ function map(array) {
  Пример:
    reduce([1, 2, 3], (all, current) => all + current) // 6
  */
-function reduce(array, fn, initial) {}
+function reduce(array, fn, initial) {
+  let result = 0;
+  for (let i = 0; i < array.length; i++) {
+    result = result + array[i];
+  }
+  return result + initial;
+}
 
 /*
  Задание 4:
@@ -50,20 +56,21 @@ function reduce(array, fn, initial) {}
  Пример:
    upperProps({ name: 'Сергей', lastName: 'Петров' }) вернет ['NAME', 'LASTNAME']
  */
-function upperProps(obj) {
-  const upperLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-  const letters = "abcdefghijklmnopqrstuvwxyz"
-  var obj = 'name' //Не могу понять как обратиться к свойству//
-  for (var i = 0; i < obj.length; i++) {
-      for (var j = 0; j < letters.length; j++) {
-          if (obj[i] == letters[j]) {
-              result = result + upperLetters[j]
-          } else if (obj[i] == upperLetters[j]) {
-              result = result + upperLetters[j]
-          }
+function upperProps(a) {
+  const upperLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const letters = 'abcdefghijklmnopqrstuvwxyz';
+  let result = '';
+  //Не могу понять как обратиться к свойству//
+  for (let i = 0; i < a.length; i++) {
+    for (let j = 0; j < letters.length; j++) {
+      if (a[i] === letters[j]) {
+        result += upperLetters[j];
+      } else if (a[i] === upperLetters[j]) {
+        result += upperLetters[j];
       }
+    }
   }
-  return result
+  return result;
 }
 
 /*
