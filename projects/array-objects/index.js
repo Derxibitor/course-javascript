@@ -11,7 +11,7 @@
  */
 function forEach(array, fn) {
   for (let i = 0; i < array.length; i++) {
-    fn();
+    fn(array[i], i, array);
   }
 }
 
@@ -24,11 +24,13 @@ function forEach(array, fn) {
  Пример:
    map([1, 2, 3], (el) => el ** 2) // [1, 4, 9]
  */
-function map(array) {
+function map(array, fn) {
+  const myArray = [];
   for (let i = 0; i < array.length; i++) {
-    array[i] = array[i] ** 2;
-    return array;
+    const result = fn(array[i], i, array);
+    myArray.push(result);
   }
+  return myArray;
 }
 
 /*
@@ -42,10 +44,20 @@ function map(array) {
  */
 function reduce(array, fn, initial) {
   let result = 0;
-  for (let i = 0; i < array.length; i++) {
-    result = result + array[i];
+  if (typeof initial === 'undefined') {
+    result = array[0];
+    for (let i = 1; i < array.length; i++) {
+      result = fn(result, array[i]);
+    }
+    return result;
+  } else if (typeof initial !== 'undefined') {
+    // result = initial;
+    for (let i = 0; i < array.length; i++) {
+      result = fn(result, array[i], initial);
+    }
+    return result;
   }
-  return result + initial;
+  return result;
 }
 
 /*
@@ -56,21 +68,25 @@ function reduce(array, fn, initial) {
  Пример:
    upperProps({ name: 'Сергей', lastName: 'Петров' }) вернет ['NAME', 'LASTNAME']
  */
-function upperProps(a) {
+function upperProps(obj) {
   const upperLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   const letters = 'abcdefghijklmnopqrstuvwxyz';
   let result = '';
-  //Не могу понять как обратиться к свойству//
-  for (let i = 0; i < a.length; i++) {
-    for (let j = 0; j < letters.length; j++) {
-      if (a[i] === letters[j]) {
-        result += upperLetters[j];
-      } else if (a[i] === upperLetters[j]) {
-        result += upperLetters[j];
+  const myArray = [];
+  for (const key in obj) {
+    for (let i = 0; i < key.length; i++) {
+      for (let j = 0; j < letters.length; j++) {
+        if (key[i] === letters[j]) {
+          result = upperLetters[j];
+          myArray.push(result);
+        } else if (key[i] === upperLetters[j]) {
+          result = upperLetters[j];
+          myArray.push(result);
+        }
       }
     }
   }
-  return result;
+  return myArray;
 }
 
 /*
