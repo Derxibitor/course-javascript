@@ -16,7 +16,26 @@
    isAllTrue([1, 2, 3, 4, 5], n => n < 10) // вернет true
    isAllTrue([100, 2, 3, 4, 5], n => n < 10) // вернет false
  */
-function isAllTrue(array, fn) {}
+function isAllTrue(array, fn) {
+  try {
+    if (array === []) {
+      throw new Error('empty array');
+    } else {
+      let answer = true;
+      let result;
+      for (let i = 0; i < array.length; i++) {
+        result = fn(array[i]);
+        if (result === false) {
+          answer = false;
+          return answer;
+        }
+      }
+      return answer;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 /*
  Задание 2:
@@ -34,7 +53,26 @@ function isAllTrue(array, fn) {}
    isSomeTrue([1, 2, 30, 4, 5], n => n > 20) // вернет true
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
-function isSomeTrue(array, fn) {}
+function isSomeTrue(array, fn) {
+  try {
+    if (array === []) {
+      throw new Error('empty array');
+    } else {
+      let answer = false;
+      let result;
+      for (let i = 0; i < array.length; i++) {
+        result = fn(array[i]);
+        if (result === true) {
+          answer = true;
+          return answer;
+        }
+      }
+      return answer;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 /*
  Задание 3:
@@ -66,7 +104,44 @@ function returnBadArguments(fn, ...args) {}
    - number не является числом (с текстом "number is not a number")
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator(number = 0) {}
+function calculator(number = 0, ...args) {
+  if (number === Number) {
+    const answer = 'number is not a number';
+    return answer;
+  } else if (number !== Number) {
+    const answer = {};
+    let resultSum = number;
+    let resultDif = number;
+    let resultDiv = number;
+    let resultMul = number;
+
+    for (let i = 0; i < args.length; i++) {
+      resultSum = resultSum + args[i];
+    }
+    answer.sum = resultSum;
+
+    for (let i = 0; i < args.length; i++) {
+      resultDif = resultDif - args[i];
+    }
+    answer.dif = resultDif;
+
+    for (let i = 0; i < args.length; i++) {
+      if (args[i] === 0) {
+        resultDiv = 'division by 0';
+        return resultDiv;
+      } else {
+        resultDiv = resultDiv / args[i];
+      }
+    }
+    answer.div = resultDiv;
+
+    for (let i = 0; i < args.length; i++) {
+      resultMul = resultMul * args[i];
+    }
+    answer.mul = resultMul;
+    return answer;
+  }
+}
 
 /* При решении задач, постарайтесь использовать отладчик */
 
