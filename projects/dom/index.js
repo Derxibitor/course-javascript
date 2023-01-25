@@ -102,10 +102,9 @@ function findError(where) {
  */
 function deleteTextNodes(where) {
   const Element = where.querySelector();
-  const elementContent = Element.querySelector();
 
-  for (let i = 0; i < Element.length; i++) {
-    Element.remove(elementContent.textContent);
+  for (const child of Element.childNodes) {
+    Element.remove(child.textContent);
   }
 }
 
