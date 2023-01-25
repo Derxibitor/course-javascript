@@ -80,9 +80,8 @@ function findAllPSiblings(where) {
  */
 function findError(where) {
   const result = [];
-  const body = where.querySelectorAll();
 
-  for (const child of body.childNodes) {
+  for (const child of where.childNodes) {
     result.push(child.textContent);
   }
 
