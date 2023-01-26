@@ -23,10 +23,8 @@ function isAllTrue(array, fn) {
     throw new Error('fn is not a function');
   } else {
     let answer = true;
-    let result;
     for (let i = 0; i < array.length; i++) {
-      result = fn(array[i]);
-      if (result === false) {
+      if (fn(array[i]) === false) {
         answer = false;
         return answer;
       }
@@ -58,10 +56,8 @@ function isSomeTrue(array, fn) {
     throw new Error('fn is not a function');
   } else {
     let answer = false;
-    let result;
     for (let i = 0; i < array.length; i++) {
-      result = fn(array[i]);
-      if (result === true) {
+      if (answer !== fn(array[i])) {
         answer = true;
         return answer;
       }
