@@ -11,9 +11,8 @@
    createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
 function createDivWithText(text) {
-  const myDiv = document.querySelector('div');
-  document.appendChild(myDiv);
-  myDiv.textContent(text);
+  const myDiv = document.createElement('div');
+  myDiv.textContent = text;
   return myDiv;
 }
 
@@ -26,7 +25,7 @@ function createDivWithText(text) {
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
 function prepend(what, where) {
-  where.appendChild(what);
+  where.prepend(what);
 }
 
 /*
@@ -50,13 +49,10 @@ function prepend(what, where) {
  */
 function findAllPSiblings(where) {
   const array = [];
-  const whereElement = document.querySelector(where);
-  const pElement = whereElement.getElementsByTagName('p');
-  for (let i = 0; i < pElement.length; i++) {
-    const prevElement = pElement[i].previousSibling;
-    const nextElement = pElement[i].nextSibling;
-    array.push(prevElement);
-    array.push(nextElement);
+  for (const el of where.children) {
+    if (el.nextElementSibling && el.nextElementSibling.tagName === 'P') {
+      array.push(el);
+    }
   }
   return array;
 }
@@ -81,7 +77,7 @@ function findAllPSiblings(where) {
 function findError(where) {
   const result = [];
 
-  for (const child of where.childNodes) {
+  for (const child of where.children) {
     result.push(child.textContent);
   }
 
@@ -101,10 +97,10 @@ function findError(where) {
    должно быть преобразовано в <div></div><p></p>
  */
 function deleteTextNodes(where) {
-  const Element = where.querySelector();
-
-  for (const child of Element.childNodes) {
-    Element.remove(child.textContent);
+  for (const child of where.childNodes) {
+    if (child.nodeType === 3) {
+      child.remove();
+    }
   }
 }
 
@@ -119,7 +115,17 @@ function deleteTextNodes(where) {
    После выполнения функции, дерево <span> <div> <b>привет</b> </div> <p>loftchool</p> !!!</span>
    должно быть преобразовано в <span><div><b></b></div><p></p></span>
  */
-function deleteTextNodesRecursive(where) {}
+function deleteTextNodesRecursive(where) {
+  for (let i = 0; i < where.length; i++) {
+    const el = where.childNodes;
+    if (el.nodeType === Element.TEXT_NODE) {
+      where.removeChild(el);
+      i--;
+    } else if (el.nodeType === Element.ELEMENT_NODE) {
+      deleteTextNodesRecursive(el);
+    }
+  }
+}
 
 /*
  Задание 7 *:
