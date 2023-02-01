@@ -13,7 +13,6 @@ function delayPromise(seconds) {
   return new Promise((resolve, reject) => {
     setTimeout(function () {
       resolve();
-      return;
     }, time);
   });
 }
