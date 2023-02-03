@@ -9,7 +9,7 @@
    addListener('click', document.querySelector('a'), () => console.log('...')) // должна добавить указанный обработчик кликов на указанный элемент
  */
 function addListener(eventName, target, fn) {
-  target.addEventListener(eventName, fn());
+  target.addEventListener(eventName, fn);
 }
 
 /*
@@ -21,7 +21,7 @@ function addListener(eventName, target, fn) {
    removeListener('click', document.querySelector('a'), someHandler) // должна удалить указанный обработчик кликов на указанный элемент
  */
 function removeListener(eventName, target, fn) {
-  target.removeEventListener(eventName, fn());
+  target.removeEventListener(eventName, fn);
 }
 
 /*
@@ -63,9 +63,7 @@ function delegate(target, fn) {
   const el = target.getElementsByTagName('button');
   target.addEventListener('click', function (e) {
     if (e === el) {
-      fn();
-    } else {
-      e.preventDefault();
+      fn;
     }
   });
 }
@@ -80,9 +78,7 @@ function delegate(target, fn) {
    once(document.querySelector('button'), () => console.log('обработчик выполнился!')) // добавит такой обработчик кликов для указанного элемента, который вызовется только один раз и затем удалится
  */
 function once(target, fn) {
-  target.addEventListener('click', fn(), () => {
-    target.removeEventListener();
-  });
+  target.addEventListener('click', fn, { once: true });
 }
 
 export { addListener, removeListener, skipDefault, emulateClick, delegate, once };
